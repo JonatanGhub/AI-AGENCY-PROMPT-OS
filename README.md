@@ -139,6 +139,9 @@ El sistema está diseñado para que un agente lea el repo y ejecute módulos. Fl
 3. Regístralo en [`registry/prompt-index.md`](registry/prompt-index.md) y
    [`registry/dependency-map.md`](registry/dependency-map.md).
 4. Versiona según [`registry/versioning.md`](registry/versioning.md).
+5. Ejecuta `python3 scripts/validate.py` (sin dependencias) para verificar que los schemas
+   son válidos y que el registry no tiene referencias colgantes. El mismo check corre en CI
+   ([`.github/workflows/validate.yml`](.github/workflows/validate.yml)) en cada PR.
 
 ---
 
