@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-agency-prompt-os/schemas/input.schema.json",
+  "title": "Normalized Module Input",
+  "description": "Contrato de entrada universal para cualquier prompt-microservicio del sistema. Todo prompt DEBE aceptar este objeto como input. Garantiza que f(input) sea reproducible y encadenable.",
+  "type": "object",
+  "required": ["business_context", "objective", "constraints"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Metadatos de ejecución y trazabilidad.",
+      "additionalProperties": false,
+      "properties": {
+        "run_id": { "type": "string", "description": "Identificador único de la ejecución / workflow." },
+        "called_by": { "type": "string", "description": "id del prompt u orquestador que invoca este módulo." },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "workflow": { "type": "string", "description": "Nombre del workflow en curso, si aplica." }
+      }
+    },
+    "business_context": {
+      "type": "object",
+      "description": "Contexto del negocio sobre el que se opera.",
+      "required": ["description"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string", "description": "Qué hace el negocio, problema que resuelve." },
+        "industry": { "type": "string" },
+        "stage": {
+          "type": "string",
+          "enum": ["idea", "pre-seed", "mvp", "growth", "scale", "enterprise"],
+          "description": "Etapa actual del negocio."
+        },
+        "target_market": { "type": "string" },
+        "business_model": { "type": "string", "description": "Cómo gana dinero (SaaS, servicios, marketplace, etc.)." }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "description": "Qué debe lograr la ejecución de este módulo.",
+      "required": ["goal"],
+      "additionalProperties": false,
+      "properties": {
+        "goal": { "type": "string", "description": "Objetivo concreto y medible." },
+        "success_metrics": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Cómo se mide el éxito de este output."
+        },
+        "time_horizon": { "type": "string", "description": "Plazo objetivo (ej. 30d, Q3, 12m)." }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Límites duros que el output NO puede violar.",
+      "additionalProperties": false,
+      "properties": {
+        "budget": { "type": "string" },
+        "team": { "type": "string", "description": "Recursos humanos disponibles." },
+        "tech_stack": { "type": "array", "items": { "type": "string" } },
+        "compliance": { "type": "array", "items": { "type": "string" }, "description": "Restricciones legales/regulatorias." },
+        "non_negotiables": { "type": "array", "items": { "type": "string" } },
+        "deadline": { "type": "string" }
+      }
+    },
+    "available_data": {
+      "type": "object",
+      "description": "Datos y artefactos ya disponibles que el módulo debe reutilizar antes de asumir nada.",
+      "additionalProperties": true,
+      "properties": {
+        "upstream_outputs": {
+          "type": "array",
+          "description": "Outputs de prompts anteriores en el workflow (conforme a output.schema.json).",
+          "items": { "type": "object" }
+        },
+        "assets": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Documentos, métricas, research, accesos disponibles."
+        },
+        "known_metrics": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Métricas conocidas (CAC, LTV, MRR, conversion, etc.)."
+        }
+      }
+    }
+  }
+}

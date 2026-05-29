@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-agency-prompt-os/schemas/output.schema.json",
+  "title": "Structured Module Output",
+  "description": "Contrato de salida universal. Todo prompt-microservicio DEBE devolver este objeto. Garantiza que el output de un módulo pueda alimentar a otro sin adaptación manual (compatibilidad f→f).",
+  "type": "object",
+  "required": ["module", "version", "summary", "decisions", "recommendation", "risks", "dependencies", "next_steps"],
+  "additionalProperties": false,
+  "properties": {
+    "module": { "type": "string", "description": "id del prompt que generó el output (ej. growth-engine)." },
+    "version": { "type": "string", "pattern": "^v\\d+\\.\\d+$", "description": "Versión del prompt (ej. v1.0)." },
+    "run_id": { "type": "string", "description": "Trazabilidad: hereda meta.run_id del input." },
+    "status": {
+      "type": "string",
+      "enum": ["complete", "needs_human_decision", "blocked", "partial"],
+      "description": "Estado del output. 'blocked' / 'needs_human_decision' detienen el workflow."
+    },
+    "summary": { "type": "string", "description": "Resumen ejecutivo en 2-4 frases." },
+    "decisions": {
+      "type": "array",
+      "description": "Decisiones tomadas, cada una conforme a decision.schema.json.",
+      "items": { "$ref": "https://ai-agency-prompt-os/schemas/decision.schema.json" }
+    },
+    "options_compared": {
+      "type": "array",
+      "description": "Opciones evaluadas y por qué se descartaron las no elegidas.",
+      "items": {
+        "type": "object",
+        "required": ["option", "pros", "cons"],
+        "additionalProperties": false,
+        "properties": {
+          "option": { "type": "string" },
+          "pros": { "type": "array", "items": { "type": "string" } },
+          "cons": { "type": "array", "items": { "type": "string" } },
+          "selected": { "type": "boolean" }
+        }
+      }
+    },
+    "recommendation": { "type": "string", "description": "Recomendación final accionable y sin ambigüedad." },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk", "severity", "mitigation"],
+        "additionalProperties": false,
+        "properties": {
+          "risk": { "type": "string" },
+          "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "likelihood": { "type": "string", "enum": ["low", "medium", "high"] },
+          "mitigation": { "type": "string" }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Contrato de encadenamiento del módulo.",
+      "required": ["consumes", "produces", "feeds"],
+      "additionalProperties": false,
+      "properties": {
+        "consumes": { "type": "array", "items": { "type": "string" }, "description": "ids de prompts cuyos outputs necesita." },
+        "produces": { "type": "array", "items": { "type": "string" }, "description": "Artefactos clave que genera (claves del output)." },
+        "feeds": { "type": "array", "items": { "type": "string" }, "description": "ids de prompts que pueden consumir este output." }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "description": "Payload específico del módulo (libre). Es lo que los módulos downstream leen de available_data.upstream_outputs.",
+      "additionalProperties": true
+    },
+    "next_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action"],
+        "additionalProperties": false,
+        "properties": {
+          "action": { "type": "string" },
+          "owner": { "type": "string", "description": "Quién ejecuta: prompt id, departamento, o 'human'." },
+          "priority": { "type": "string", "enum": ["P0", "P1", "P2", "P3"] }
+        }
+      }
+    },
+    "human_decisions_required": {
+      "type": "array",
+      "description": "Decisiones estratégicas que el sistema NO debe tomar solo.",
+      "items": { "type": "string" }
+    }
+  }
+}

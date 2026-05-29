@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-agency-prompt-os/schemas/decision.schema.json",
+  "title": "Decision Record",
+  "description": "Unidad atómica de decisión. Reusada en output.schema.json y en el Decision Log del orquestador. Modela la tabla canónica | Decision | Options | Recommendation | Impact |.",
+  "type": "object",
+  "required": ["decision", "options", "recommendation", "impact"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "description": "Identificador estable de la decisión (ej. D-001)." },
+    "decision": { "type": "string", "description": "La pregunta o disyuntiva que se resuelve." },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string" },
+      "description": "Opciones consideradas."
+    },
+    "recommendation": { "type": "string", "description": "Opción elegida y justificación breve." },
+    "impact": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "strategic"],
+      "description": "Magnitud del impacto. 'strategic' debe escalarse a humano."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Confianza del módulo en la recomendación."
+    },
+    "reversible": { "type": "boolean", "description": "Si la decisión es fácilmente reversible." },
+    "owner": { "type": "string", "description": "Quién es responsable (prompt id, departamento o 'human')." },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "ids de otras decisiones de las que depende."
+    }
+  }
+}
