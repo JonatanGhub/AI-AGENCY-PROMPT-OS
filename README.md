@@ -125,6 +125,15 @@ El sistema está diseñado para que un agente lea el repo y ejecute módulos. Fl
 
 ---
 
+## 📂 Ejemplos
+
+[`examples/`](examples/) contiene ejecuciones de referencia end-to-end. La primera,
+[`ai-tutor-oposiciones`](examples/ai-tutor-oposiciones/), muestra un `input.json` normalizado y la
+ejecución encadenada de `full-business-build` (10 módulos → merge del orquestador), evidenciando
+cómo el output de cada módulo alimenta al siguiente sin adaptación manual.
+
+---
+
 ## 🧭 Principios de diseño
 
 **Priorizar:** modularidad · reutilización · automatización · claridad estructural · compatibilidad entre prompts.

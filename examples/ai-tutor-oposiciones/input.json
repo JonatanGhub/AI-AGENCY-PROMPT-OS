@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "run_id": "example-ai-tutor-001",
+    "workflow": "full-business-build"
+  },
+  "business_context": {
+    "name": "OpoCoach",
+    "description": "Tutor de IA que prepara a candidatos para oposiciones (empleo público) con planes de estudio adaptativos, tests con explicaciones y simulacros corregidos automáticamente.",
+    "industry": "EdTech",
+    "stage": "idea",
+    "target_market": "Candidatos a oposiciones en España (18-40 años) que estudian por su cuenta.",
+    "business_model": "SaaS B2C por suscripción mensual."
+  },
+  "objective": {
+    "goal": "Diseñar el negocio completo: producto, arquitectura de IA, crecimiento, ventas, operaciones y finanzas, listo para lanzar un MVP en 90 días.",
+    "success_metrics": [
+      "MVP en producción en 90 días",
+      "LTV:CAC >= 3 en el escenario base",
+      "1.000 usuarios activos en los primeros 6 meses"
+    ],
+    "time_horizon": "12m"
+  },
+  "constraints": {
+    "budget": "40.000 EUR para los primeros 6 meses",
+    "team": "2 fundadores (1 técnico, 1 growth) + 1 contractor part-time",
+    "tech_stack": ["Next.js", "Supabase", "Anthropic API", "Stripe"],
+    "compliance": ["GDPR", "protección de datos de menores no aplica (público adulto)"],
+    "non_negotiables": [
+      "Contenido alineado a temarios oficiales actualizados",
+      "Coste variable de IA por usuario por debajo del 25% del precio"
+    ],
+    "deadline": "MVP en 90 días"
+  },
+  "available_data": {
+    "assets": [
+      "Temarios oficiales públicos de 3 oposiciones piloto",
+      "Comunidad de 2.000 seguidores en redes del fundador growth"
+    ],
+    "known_metrics": {
+      "organic_audience": 2000,
+      "target_price_eur_month": 29
+    }
+  }
+}
