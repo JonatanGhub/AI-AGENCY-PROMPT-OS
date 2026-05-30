@@ -1,0 +1,54 @@
+{
+  "$schema": "./manifest.schema.json",
+  "name": "ai-agency-prompt-os",
+  "version": "1.0",
+  "description": "Manifiesto legible por máquina del grafo de microservicios cognitivos. Fuente de verdad para que Cloud Code recorra módulos y workflows programáticamente. Sincronizado con prompt-index.md y dependency-map.md por scripts/validate.py.",
+  "modules": [
+    { "id": "orchestrator", "department": "core", "type": "coordinator", "version": "v1.0", "path": "core/orchestrator.prompt.md", "consumes": [], "feeds": [] },
+    { "id": "workflow-engine", "department": "core", "type": "executor", "version": "v1.0", "path": "core/workflow-engine.prompt.md", "consumes": [], "feeds": ["orchestrator"] },
+
+    { "id": "product-builder", "department": "product", "type": "pure-function", "version": "v1.0", "path": "departments/product/product-builder.prompt.md", "consumes": [], "feeds": ["ai-architecture", "ux-strategy", "roadmap-generator", "growth-engine", "pricing-strategy", "ops-automation"] },
+    { "id": "ux-strategy", "department": "product", "type": "pure-function", "version": "v1.0", "path": "departments/product/ux-strategy.prompt.md", "consumes": ["product-builder"], "feeds": ["roadmap-generator", "funnel-designer", "growth-engine"] },
+    { "id": "roadmap-generator", "department": "product", "type": "pure-function", "version": "v1.0", "path": "departments/product/roadmap-generator.prompt.md", "consumes": ["product-builder", "ux-strategy", "ai-architecture"], "feeds": ["ops-automation", "scaling-ops", "financial-scenarios"] },
+
+    { "id": "growth-engine", "department": "growth", "type": "pure-function", "version": "v1.0", "path": "departments/growth/growth-engine.prompt.md", "consumes": ["product-builder", "ux-strategy"], "feeds": ["funnel-designer", "content-strategy", "sales-system", "unit-economics"] },
+    { "id": "funnel-designer", "department": "growth", "type": "pure-function", "version": "v1.0", "path": "departments/growth/funnel-designer.prompt.md", "consumes": ["growth-engine", "ux-strategy"], "feeds": ["sales-system", "content-strategy", "unit-economics"] },
+    { "id": "content-strategy", "department": "growth", "type": "pure-function", "version": "v1.0", "path": "departments/growth/content-strategy.prompt.md", "consumes": ["growth-engine", "funnel-designer"], "feeds": ["sales-system", "ops-automation"] },
+
+    { "id": "sales-system", "department": "sales", "type": "pure-function", "version": "v1.0", "path": "departments/sales/sales-system.prompt.md", "consumes": ["growth-engine", "funnel-designer", "pricing-strategy"], "feeds": ["crm-automation", "closing-playbooks", "ops-automation", "financial-scenarios"] },
+    { "id": "crm-automation", "department": "sales", "type": "pure-function", "version": "v1.0", "path": "departments/sales/crm-automation.prompt.md", "consumes": ["sales-system"], "feeds": ["ops-automation", "closing-playbooks"] },
+    { "id": "closing-playbooks", "department": "sales", "type": "pure-function", "version": "v1.0", "path": "departments/sales/closing-playbooks.prompt.md", "consumes": ["sales-system", "pricing-strategy", "crm-automation"], "feeds": [] },
+
+    { "id": "ops-automation", "department": "operations", "type": "pure-function", "version": "v1.0", "path": "departments/operations/ops-automation.prompt.md", "consumes": ["sales-system", "crm-automation", "product-builder", "roadmap-generator", "agent-design"], "feeds": ["workflow-designer", "scaling-ops"] },
+    { "id": "workflow-designer", "department": "operations", "type": "pure-function", "version": "v1.0", "path": "departments/operations/workflow-designer.prompt.md", "consumes": ["ops-automation"], "feeds": ["scaling-ops"] },
+    { "id": "scaling-ops", "department": "operations", "type": "pure-function", "version": "v1.0", "path": "departments/operations/scaling-ops.prompt.md", "consumes": ["ops-automation", "workflow-designer", "financial-scenarios", "roadmap-generator"], "feeds": ["orchestrator"] },
+
+    { "id": "pricing-strategy", "department": "finance", "type": "pure-function", "version": "v1.0", "path": "departments/finance/pricing-strategy.prompt.md", "consumes": ["product-builder", "unit-economics"], "feeds": ["sales-system", "closing-playbooks", "financial-scenarios", "unit-economics"] },
+    { "id": "unit-economics", "department": "finance", "type": "pure-function", "version": "v1.0", "path": "departments/finance/unit-economics.prompt.md", "consumes": ["growth-engine", "funnel-designer", "pricing-strategy", "model-selection"], "feeds": ["financial-scenarios", "pricing-strategy", "scaling-ops"] },
+    { "id": "financial-scenarios", "department": "finance", "type": "pure-function", "version": "v1.0", "path": "departments/finance/financial-scenarios.prompt.md", "consumes": ["unit-economics", "pricing-strategy", "growth-engine", "scaling-ops"], "feeds": ["orchestrator", "scaling-ops"] },
+
+    { "id": "ai-architecture", "department": "ai-engineering", "type": "pure-function", "version": "v1.0", "path": "departments/ai-engineering/ai-architecture.prompt.md", "consumes": ["product-builder"], "feeds": ["model-selection", "agent-design", "roadmap-generator", "ops-automation"] },
+    { "id": "model-selection", "department": "ai-engineering", "type": "pure-function", "version": "v1.0", "path": "departments/ai-engineering/model-selection.prompt.md", "consumes": ["ai-architecture"], "feeds": ["agent-design", "unit-economics", "ops-automation"] },
+    { "id": "agent-design", "department": "ai-engineering", "type": "pure-function", "version": "v1.0", "path": "departments/ai-engineering/agent-design.prompt.md", "consumes": ["ai-architecture", "model-selection"], "feeds": ["ops-automation"] }
+  ],
+  "workflows": [
+    {
+      "id": "full-business-build",
+      "path": "workflows/full-business-build.workflow.md",
+      "final_merge": "orchestrator",
+      "steps": ["product-builder", "ai-architecture", "model-selection", "growth-engine", "pricing-strategy", "unit-economics", "sales-system", "ops-automation", "financial-scenarios", "scaling-ops", "orchestrator"]
+    },
+    {
+      "id": "growth-loop",
+      "path": "workflows/growth-loop.workflow.md",
+      "final_merge": "orchestrator",
+      "steps": ["growth-engine", "funnel-designer", "content-strategy", "unit-economics", "orchestrator"]
+    },
+    {
+      "id": "sales-funnel",
+      "path": "workflows/sales-funnel.workflow.md",
+      "final_merge": "orchestrator",
+      "steps": ["sales-system", "crm-automation", "closing-playbooks", "ops-automation", "orchestrator"]
+    }
+  ]
+}

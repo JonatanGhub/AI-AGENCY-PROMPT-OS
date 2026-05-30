@@ -48,10 +48,14 @@ ai-agency-prompt-os/
 │   └── decision.schema.json
 │
 ├── registry/             # Catálogo, dependencias y versionado
-│   ├── prompt-index.md
+│   ├── prompt-index.md       # Vista humana del catálogo
+│   ├── manifest.json         # Fuente de verdad legible por máquina (grafo + workflows)
+│   ├── manifest.schema.json
 │   ├── dependency-map.md
 │   └── versioning.md
 │
+├── examples/             # Ejecuciones de referencia end-to-end
+├── scripts/validate.py   # Validador de integridad (corre en CI)
 └── README.md
 ```
 

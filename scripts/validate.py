@@ -9,6 +9,8 @@ Comprueba, sin dependencias externas:
   4. Cada fila de registry/dependency-map.md referencia (1ª columna) un prompt existente.
   5. Cada workflow en disco está listado en prompt-index.md.
   6. Cada examples/**/input.json es JSON válido y declara las claves requeridas por el input schema.
+  7. registry/manifest.json está sincronizado con el disco: ids ↔ archivos, sin aristas colgantes,
+     workflows con pasos válidos (la fuente de verdad legible por máquina no deriva del markdown).
 
 Salida: exit code 0 si todo OK; 1 si hay algún fallo (lista los problemas).
 Pensado para correr en CI y en local.
@@ -112,6 +114,49 @@ def check_example_inputs() -> None:
             fail(f"{rel}: faltan claves requeridas del input schema: {sorted(missing)}")
 
 
+def check_manifest(disk_ids: set[str], wf_ids: set[str]) -> None:
+    manifest_path = ROOT / "registry" / "manifest.json"
+    if not manifest_path.exists():
+        fail("registry/manifest.json no existe")
+        return
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        fail(f"JSON inválido en registry/manifest.json: {e}")
+        return
+
+    module_ids = {m["id"] for m in manifest.get("modules", [])}
+
+    # ids del manifiesto ↔ prompts en disco (en ambos sentidos)
+    for mid in sorted(disk_ids - module_ids):
+        fail(f"manifest.json: prompt en disco ausente del manifiesto: {mid}")
+    for mid in sorted(module_ids - disk_ids):
+        fail(f"manifest.json: módulo sin archivo .prompt.md en disco: {mid}")
+
+    # cada módulo: el path existe y las aristas referencian ids conocidos
+    for m in manifest.get("modules", []):
+        mid = m["id"]
+        if not (ROOT / m["path"]).exists():
+            fail(f"manifest.json: path inexistente para {mid}: {m['path']}")
+        for edge_kind in ("consumes", "feeds"):
+            for ref in m.get(edge_kind, []):
+                if ref not in module_ids:
+                    fail(f"manifest.json: {mid}.{edge_kind} referencia id desconocido: {ref}")
+
+    # workflows del manifiesto ↔ disco, y pasos válidos
+    manifest_wf_ids = {w["id"] for w in manifest.get("workflows", [])}
+    for wid in sorted(wf_ids - manifest_wf_ids):
+        fail(f"manifest.json: workflow en disco ausente del manifiesto: {wid}")
+    for wid in sorted(manifest_wf_ids - wf_ids):
+        fail(f"manifest.json: workflow sin archivo .workflow.md en disco: {wid}")
+    for w in manifest.get("workflows", []):
+        if not (ROOT / w["path"]).exists():
+            fail(f"manifest.json: path inexistente para workflow {w['id']}: {w['path']}")
+        for step in w.get("steps", []):
+            if step not in module_ids:
+                fail(f"manifest.json: workflow {w['id']} tiene paso desconocido: {step}")
+
+
 def main() -> int:
     disk_ids = prompt_ids_on_disk()
     wf_ids = workflow_ids_on_disk()
@@ -124,6 +169,7 @@ def main() -> int:
     check_dependency_map(disk_ids, dep_text)
     check_workflows_indexed(wf_ids, index_text)
     check_example_inputs()
+    check_manifest(disk_ids, wf_ids)
 
     print(f"prompts en disco: {len(disk_ids)} · workflows: {len(wf_ids)}")
     if errors:

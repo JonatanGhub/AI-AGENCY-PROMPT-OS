@@ -44,6 +44,8 @@ Añadir al final del `.prompt.md` cuando aplique:
 ## Flujo de release
 
 1. Editar el `.prompt.md` y su `version`.
-2. Actualizar `registry/prompt-index.md` y, si cambió el contrato, `registry/dependency-map.md`.
-3. Commit descriptivo (`feat(growth): growth-engine v1.1 — …`).
-4. Si es MAJOR, nota de migración en el changelog del prompt.
+2. Actualizar `registry/prompt-index.md`, `registry/manifest.json` (versión y aristas) y, si cambió
+   el contrato, `registry/dependency-map.md`.
+3. Ejecutar `python3 scripts/validate.py` (debe pasar: detecta drift entre manifiesto, index y disco).
+4. Commit descriptivo (`feat(growth): growth-engine v1.1 — …`).
+5. Si es MAJOR, nota de migración en el changelog del prompt.
