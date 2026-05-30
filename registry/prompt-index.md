@@ -4,7 +4,7 @@
 > índice antes de delegar. Mantener sincronizado al añadir/versionar prompts.
 >
 > **Versión legible por máquina:** [`manifest.json`](manifest.json) (validada por `scripts/validate.py`).
-> Para recorrer el grafo programáticamente con Cloud Code, usa el manifiesto; este archivo es la vista humana.
+> Para recorrer el grafo programáticamente con Claude Code, usa el manifiesto; este archivo es la vista humana.
 
 ## Core
 

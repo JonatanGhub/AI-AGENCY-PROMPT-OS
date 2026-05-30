@@ -1,0 +1,21 @@
+name: Nuevo prompt / workflow / mejora
+description: Propón un nuevo microservicio cognitivo, workflow o mejora.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Qué propones
+      description: Describe el prompt/workflow/mejora y el problema que resuelve.
+    validations:
+      required: true
+  - type: input
+    id: department
+    attributes:
+      label: Departamento (si aplica)
+      placeholder: "product · growth · sales · operations · finance · ai-engineering"
+  - type: textarea
+    id: io
+    attributes:
+      label: Contrato de I/O esperado
+      description: Qué consume (`consumes`), qué produce (`produces`) y a quién alimenta (`feeds`).

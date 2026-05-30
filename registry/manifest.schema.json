@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ai-agency-prompt-os/registry/manifest.schema.json",
   "title": "Prompt OS Manifest",
-  "description": "Esquema del manifiesto legible por máquina (registry/manifest.json): grafo de módulos y workflows que Cloud Code recorre programáticamente.",
+  "description": "Esquema del manifiesto legible por máquina (registry/manifest.json): grafo de módulos y workflows que Claude Code recorre programáticamente.",
   "type": "object",
   "required": ["name", "version", "modules", "workflows"],
   "additionalProperties": true,

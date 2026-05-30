@@ -1,0 +1,20 @@
+name: Bug / inconsistencia
+description: Reporta un fallo, una inconsistencia de registro o un error del validador.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Qué ocurre
+      description: Describe el problema y, si aplica, la salida de `python3 scripts/validate.py`.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Archivo(s) afectado(s)
+      placeholder: "p. ej. departments/finance/pricing-strategy.prompt.md"
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamiento esperado

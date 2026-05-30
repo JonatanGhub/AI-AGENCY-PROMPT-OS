@@ -8,7 +8,7 @@ siguiente sin adaptación manual.
 |---------|----------|---------------|
 | [`ai-tutor-oposiciones/`](ai-tutor-oposiciones/) | `full-business-build` | Diseño completo de un SaaS B2C de IA: encadenamiento de 10 módulos + merge del orquestador, con gating económico. |
 
-## Cómo usar un ejemplo con Cloud Code
+## Cómo usar un ejemplo con Claude Code
 
 > "Carga `examples/ai-tutor-oposiciones/input.json` como input. Actúa como `core/orchestrator` y
 > ejecuta el workflow `full-business-build`. Devuelve el output consolidado conforme a

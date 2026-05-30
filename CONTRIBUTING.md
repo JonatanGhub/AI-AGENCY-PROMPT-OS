@@ -44,4 +44,4 @@ El mismo check corre en CI ([`.github/workflows/validate.yml`](.github/workflows
 
 ## Estructura del repo
 
-Ver [`README.md`](README.md) para el árbol completo y cómo ejecutar workflows con Cloud Code.
+Ver [`README.md`](README.md) para el árbol completo y cómo ejecutar workflows con Claude Code.

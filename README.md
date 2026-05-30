@@ -1,10 +1,14 @@
 # 🧠 AI Agency Prompt OS
 
+[![CI](https://github.com/JonatanGhub/AI-AGENCY-PROMPT-OS/actions/workflows/validate.yml/badge.svg)](https://github.com/JonatanGhub/AI-AGENCY-PROMPT-OS/actions/workflows/validate.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
 > Sistema operativo modular de prompts para una agencia de IA. Cada prompt es un
 > **microservicio cognitivo** especializado: una función pura `f(input) → structured output`
 > que se puede encadenar, reutilizar y versionar como código.
 
-Diseñado para ejecutarse en un repositorio de GitHub con **Claude / Cloud Code (Opus 4.8)**:
+Diseñado para ejecutarse en un repositorio de GitHub con **Claude Code (Opus 4.8)**:
 leer el repo completo, ejecutar prompts como módulos, encadenar workflows y generar nuevos prompts.
 
 ---
@@ -43,7 +47,8 @@ ai-agency-prompt-os/
 ├── workflows/            # Encadenamientos declarativos de prompts
 │   ├── full-business-build.workflow.md
 │   ├── growth-loop.workflow.md
-│   └── sales-funnel.workflow.md
+│   ├── sales-funnel.workflow.md
+│   └── blueprint-mvp.workflow.md     # "Compiler" mínimo para un SaaS consumidor
 │
 ├── schemas/              # Contratos de I/O (JSON Schema)
 │   ├── input.schema.json
@@ -98,7 +103,7 @@ registrado en [`registry/dependency-map.md`](registry/dependency-map.md).
 
 ---
 
-## 🚀 Cómo se ejecuta con Cloud Code (Opus 4.8)
+## 🚀 Cómo se ejecuta con Claude Code (Opus 4.8)
 
 El sistema está diseñado para que un agente lea el repo y ejecute módulos. Flujo típico:
 
@@ -129,6 +134,7 @@ El sistema está diseñado para que un agente lea el repo y ejecute módulos. Fl
 | [`full-business-build`](workflows/full-business-build.workflow.md) | Diseñar una empresa de IA completa | Plan integrado de 10 módulos + merge |
 | [`growth-loop`](workflows/growth-loop.workflow.md) | Motor de crecimiento + viabilidad económica | Modelo, funnel, contenido, gate de unit economics |
 | [`sales-funnel`](workflows/sales-funnel.workflow.md) | Sistema de ventas automatizado | Pipeline, CRM, playbooks de cierre |
+| [`blueprint-mvp`](workflows/blueprint-mvp.workflow.md) | Blueprint mínimo (idea → blueprint exportable) | Producto, IA, growth, pricing, unit-economics, roadmap + merge |
 
 ### Runner (manifiesto → acción)
 
@@ -142,7 +148,7 @@ python3 scripts/run_workflow.py growth-loop mi-input.json --compose   # mega-pro
 ```
 
 Resuelve el orden de pasos, valida el encadenamiento (señala errores de orden y distingue los
-*soft-cycles* esperados), y emite un plan listo para que `core/orchestrator` lo ejecute en Cloud Code.
+*soft-cycles* esperados), y emite un plan listo para que `core/orchestrator` lo ejecute en Claude Code.
 
 ---
 
@@ -200,3 +206,19 @@ pensado como "Compiler" mínimo (idea → blueprint exportable).
 - Todo prompt acepta `input.schema.json` y emite `output.schema.json`.
 - Las decisiones siguen `decision.schema.json` (tabla `| Decision | Options | Recommendation | Impact |`).
 - El grafo de dependencias es un **DAG**; las relaciones bidireccionales se resuelven por iteración, no por recursión.
+
+---
+
+## 🤝 Contribuir
+
+Lee [`CONTRIBUTING.md`](CONTRIBUTING.md) y el [código de conducta](CODE_OF_CONDUCT.md). Todo PR debe
+pasar `python3 scripts/validate.py` (el mismo check corre en CI). Para reportar fallos de seguridad,
+sigue [`SECURITY.md`](SECURITY.md).
+
+---
+
+## 📄 Licencia
+
+Distribuido bajo la licencia **Apache 2.0**. Ver [`LICENSE`](LICENSE) y [`NOTICE`](NOTICE).
+Puedes usar, modificar y embeber este motor (p. ej. como submodule en un SaaS) manteniendo los
+avisos de copyright y licencia. Incluye concesión expresa de patentes.
