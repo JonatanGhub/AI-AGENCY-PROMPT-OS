@@ -2,6 +2,9 @@
 
 > Catálogo único y autoritativo de todos los prompts del sistema. El `orchestrator` consulta este
 > índice antes de delegar. Mantener sincronizado al añadir/versionar prompts.
+>
+> **Versión legible por máquina:** [`manifest.json`](manifest.json) (validada por `scripts/validate.py`).
+> Para recorrer el grafo programáticamente con Cloud Code, usa el manifiesto; este archivo es la vista humana.
 
 ## Core
 
