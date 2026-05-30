@@ -21,6 +21,9 @@ leer el repo completo, ejecutar prompts como módulos, encadenar workflows y gen
 
 ## 🏗️ Arquitectura
 
+> Vista de conjunto con diagramas (capas, DAG de dependencias y ciclo de ejecución):
+> [`docs/architecture.md`](docs/architecture.md).
+
 ```
 ai-agency-prompt-os/
 ├── core/                 # Orquestación y motor de workflows
