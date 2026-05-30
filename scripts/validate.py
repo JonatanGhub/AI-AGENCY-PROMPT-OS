@@ -156,6 +156,12 @@ def check_manifest(disk_ids: set[str], wf_ids: set[str]) -> None:
             if step not in module_ids:
                 fail(f"manifest.json: workflow {w['id']} tiene paso desconocido: {step}")
 
+    # soft_cycles deben referenciar módulos conocidos
+    for c in manifest.get("soft_cycles", []):
+        for ref in (c.get("a"), c.get("b")):
+            if ref not in module_ids:
+                fail(f"manifest.json: soft_cycle referencia id desconocido: {ref}")
+
 
 def main() -> int:
     disk_ids = prompt_ids_on_disk()

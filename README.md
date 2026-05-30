@@ -127,6 +127,20 @@ El sistema está diseñado para que un agente lea el repo y ejecute módulos. Fl
 | [`growth-loop`](workflows/growth-loop.workflow.md) | Motor de crecimiento + viabilidad económica | Modelo, funnel, contenido, gate de unit economics |
 | [`sales-funnel`](workflows/sales-funnel.workflow.md) | Sistema de ventas automatizado | Pipeline, CRM, playbooks de cierre |
 
+### Runner (manifiesto → acción)
+
+[`scripts/run_workflow.py`](scripts/run_workflow.py) lee `registry/manifest.json` y prepara la
+orquestación de forma determinista (sin llamar a ningún LLM ni necesitar API key):
+
+```bash
+python3 scripts/run_workflow.py --list                  # workflows disponibles
+python3 scripts/run_workflow.py full-business-build examples/ai-tutor-oposiciones/input.json
+python3 scripts/run_workflow.py growth-loop mi-input.json --compose   # mega-prompt componido
+```
+
+Resuelve el orden de pasos, valida el encadenamiento (señala errores de orden y distingue los
+*soft-cycles* esperados), y emite un plan listo para que `core/orchestrator` lo ejecute en Cloud Code.
+
 ---
 
 ## 📂 Ejemplos
