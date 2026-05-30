@@ -69,5 +69,6 @@
 | `full-business-build` | `workflows/full-business-build.workflow.md` | v1.0 |
 | `growth-loop` | `workflows/growth-loop.workflow.md` | v1.0 |
 | `sales-funnel` | `workflows/sales-funnel.workflow.md` | v1.0 |
+| `blueprint-mvp` | `workflows/blueprint-mvp.workflow.md` | v1.0 |
 
-**Total:** 21 prompts (3 core + 18 departamento) · 3 workflows · 3 schemas.
+**Total:** 21 prompts (3 core + 18 departamento) · 4 workflows · 3 schemas.

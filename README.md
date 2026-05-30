@@ -165,6 +165,15 @@ futuro SaaS self-serve sin reescribir nada.
 
 ---
 
+## 🔌 Usar este repo como motor de un SaaS
+
+Este repo es el **motor reutilizable** (prompts + contratos + grafo). Una app SaaS puede consumirlo
+como su pipeline de generación de blueprints. Ver [`docs/integration-acos.md`](docs/integration-acos.md)
+para el contrato de integración y el pipeline [`blueprint-mvp`](workflows/blueprint-mvp.workflow.md),
+pensado como "Compiler" mínimo (idea → blueprint exportable).
+
+---
+
 ## 🧭 Principios de diseño
 
 **Priorizar:** modularidad · reutilización · automatización · claridad estructural · compatibilidad entre prompts.
