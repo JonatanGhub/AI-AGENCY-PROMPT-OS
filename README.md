@@ -21,6 +21,9 @@ leer el repo completo, ejecutar prompts como módulos, encadenar workflows y gen
 
 ## 🏗️ Arquitectura
 
+> Vista de conjunto con diagramas (capas, DAG de dependencias y ciclo de ejecución):
+> [`docs/architecture.md`](docs/architecture.md).
+
 ```
 ai-agency-prompt-os/
 ├── core/                 # Orquestación y motor de workflows
@@ -149,6 +152,25 @@ Resuelve el orden de pasos, valida el encadenamiento (señala errores de orden y
 [`ai-tutor-oposiciones`](examples/ai-tutor-oposiciones/), muestra un `input.json` normalizado y la
 ejecución encadenada de `full-business-build` (10 módulos → merge del orquestador), evidenciando
 cómo el output de cada módulo alimenta al siguiente sin adaptación manual.
+
+---
+
+## 🏢 Operar como agencia (multi-cliente)
+
+El [Agency Playbook](docs/agency-playbook.md) explica cómo entregar a **muchos clientes reutilizando
+los mismos módulos**: los prompts no cambian, cambia el `input`. Cada cliente vive en
+[`clients/<cliente>/`](clients/) a partir de [`clients/_template/`](clients/_template/), con su propio
+`run_id`, Decision Log y outputs aislados. Esto habilita servicios productizados, retainers y un
+futuro SaaS self-serve sin reescribir nada.
+
+---
+
+## 🔌 Usar este repo como motor de un SaaS
+
+Este repo es el **motor reutilizable** (prompts + contratos + grafo). Una app SaaS puede consumirlo
+como su pipeline de generación de blueprints. Ver [`docs/integration-acos.md`](docs/integration-acos.md)
+para el contrato de integración y el pipeline [`blueprint-mvp`](workflows/blueprint-mvp.workflow.md),
+pensado como "Compiler" mínimo (idea → blueprint exportable).
 
 ---
 

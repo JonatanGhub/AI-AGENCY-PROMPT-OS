@@ -49,6 +49,12 @@
       "path": "workflows/sales-funnel.workflow.md",
       "final_merge": "orchestrator",
       "steps": ["sales-system", "crm-automation", "closing-playbooks", "ops-automation", "orchestrator"]
+    },
+    {
+      "id": "blueprint-mvp",
+      "path": "workflows/blueprint-mvp.workflow.md",
+      "final_merge": "orchestrator",
+      "steps": ["product-builder", "ai-architecture", "growth-engine", "pricing-strategy", "unit-economics", "roadmap-generator", "orchestrator"]
     }
   ],
   "soft_cycles": [
