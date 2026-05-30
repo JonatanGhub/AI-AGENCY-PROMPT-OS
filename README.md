@@ -152,6 +152,16 @@ cómo el output de cada módulo alimenta al siguiente sin adaptación manual.
 
 ---
 
+## 🏢 Operar como agencia (multi-cliente)
+
+El [Agency Playbook](docs/agency-playbook.md) explica cómo entregar a **muchos clientes reutilizando
+los mismos módulos**: los prompts no cambian, cambia el `input`. Cada cliente vive en
+[`clients/<cliente>/`](clients/) a partir de [`clients/_template/`](clients/_template/), con su propio
+`run_id`, Decision Log y outputs aislados. Esto habilita servicios productizados, retainers y un
+futuro SaaS self-serve sin reescribir nada.
+
+---
+
 ## 🧭 Principios de diseño
 
 **Priorizar:** modularidad · reutilización · automatización · claridad estructural · compatibilidad entre prompts.

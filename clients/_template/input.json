@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "run_id": "REEMPLAZAR-cliente-001",
+    "workflow": "full-business-build"
+  },
+  "business_context": {
+    "name": "REEMPLAZAR — nombre del cliente",
+    "description": "REEMPLAZAR — qué hace el negocio y qué problema resuelve.",
+    "industry": "REEMPLAZAR",
+    "stage": "idea",
+    "target_market": "REEMPLAZAR — a quién sirve.",
+    "business_model": "REEMPLAZAR — cómo gana dinero."
+  },
+  "objective": {
+    "goal": "REEMPLAZAR — objetivo concreto y medible del encargo.",
+    "success_metrics": ["REEMPLAZAR — métrica 1", "REEMPLAZAR — métrica 2"],
+    "time_horizon": "REEMPLAZAR (ej. 90d, Q3, 12m)"
+  },
+  "constraints": {
+    "budget": "REEMPLAZAR",
+    "team": "REEMPLAZAR",
+    "tech_stack": [],
+    "compliance": [],
+    "non_negotiables": [],
+    "deadline": "REEMPLAZAR"
+  },
+  "available_data": {
+    "assets": [],
+    "known_metrics": {}
+  }
+}

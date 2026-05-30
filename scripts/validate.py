@@ -8,7 +8,7 @@ Comprueba, sin dependencias externas:
   3. Cada id de prompt referenciado en prompt-index.md existe en disco.
   4. Cada fila de registry/dependency-map.md referencia (1ª columna) un prompt existente.
   5. Cada workflow en disco está listado en prompt-index.md.
-  6. Cada examples/**/input.json es JSON válido y declara las claves requeridas por el input schema.
+  6. Cada examples/**/input.json y clients/**/input.json es JSON válido y declara las claves requeridas.
   7. registry/manifest.json está sincronizado con el disco: ids ↔ archivos, sin aristas colgantes,
      workflows con pasos válidos (la fuente de verdad legible por máquina no deriva del markdown).
 
@@ -97,21 +97,23 @@ def check_workflows_indexed(wf_ids: set[str], index_text: str) -> None:
             fail(f"workflow en disco no listado en prompt-index.md: {wid}")
 
 
-def check_example_inputs() -> None:
+def check_inputs() -> None:
+    """Valida los input.json de ejemplos y de clientes (claves requeridas del input schema)."""
     required = {"business_context", "objective", "constraints"}
-    examples_dir = ROOT / "examples"
-    if not examples_dir.exists():
-        return
-    for f in examples_dir.rglob("input.json"):
-        rel = f.relative_to(ROOT)
-        try:
-            data = json.loads(f.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as e:
-            fail(f"JSON inválido en {rel}: {e}")
+    for base in ("examples", "clients"):
+        base_dir = ROOT / base
+        if not base_dir.exists():
             continue
-        missing = required - set(data)
-        if missing:
-            fail(f"{rel}: faltan claves requeridas del input schema: {sorted(missing)}")
+        for f in base_dir.rglob("input.json"):
+            rel = f.relative_to(ROOT)
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as e:
+                fail(f"JSON inválido en {rel}: {e}")
+                continue
+            missing = required - set(data)
+            if missing:
+                fail(f"{rel}: faltan claves requeridas del input schema: {sorted(missing)}")
 
 
 def check_manifest(disk_ids: set[str], wf_ids: set[str]) -> None:
@@ -174,7 +176,7 @@ def main() -> int:
     check_index_refs_exist(disk_ids, index_text)
     check_dependency_map(disk_ids, dep_text)
     check_workflows_indexed(wf_ids, index_text)
-    check_example_inputs()
+    check_inputs()
     check_manifest(disk_ids, wf_ids)
 
     print(f"prompts en disco: {len(disk_ids)} · workflows: {len(wf_ids)}")
