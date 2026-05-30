@@ -50,5 +50,9 @@
       "final_merge": "orchestrator",
       "steps": ["sales-system", "crm-automation", "closing-playbooks", "ops-automation", "orchestrator"]
     }
+  ],
+  "soft_cycles": [
+    { "a": "pricing-strategy", "b": "unit-economics", "note": "Pricing corre con supuestos; unit-economics los valida; el orquestador puede re-disparar pricing. Resuelto por iteración, no por recursión." },
+    { "a": "financial-scenarios", "b": "scaling-ops", "note": "scaling-ops consume escenarios; su plan de hiring puede refinar los escenarios en una 2ª iteración." }
   ]
 }
