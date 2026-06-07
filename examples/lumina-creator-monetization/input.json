@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "run_id": "example-lumina-creator-001",
+    "workflow": "growth-loop"
+  },
+  "business_context": {
+    "name": "Lumina",
+    "description": "Plataforma que ayuda a creadores de contenido a convertir su audiencia en ingresos recurrentes: cursos cortos, comunidad de pago y newsletter premium con asistencia de IA para guion y edición.",
+    "industry": "Creator Economy",
+    "stage": "mvp",
+    "target_market": "Creadores con 10k-200k seguidores que aún monetizan solo por publicidad.",
+    "business_model": "SaaS B2C + comisión sobre ventas del creador."
+  },
+  "objective": {
+    "goal": "Diseñar el motor de crecimiento y validar su viabilidad económica: modelo de crecimiento, funnel, estrategia de contenido y gate de unit-economics.",
+    "success_metrics": [
+      "Coeficiente viral k > 0.4 vía referidos de creadores",
+      "Payback de CAC < 6 meses",
+      "300 creadores activos de pago en 6 meses"
+    ],
+    "time_horizon": "6m"
+  },
+  "constraints": {
+    "budget": "60.000 EUR para crecimiento en 6 meses",
+    "team": "4 personas (2 producto, 1 growth, 1 content)",
+    "tech_stack": ["Next.js", "Supabase", "Anthropic API", "Stripe Connect"],
+    "compliance": ["GDPR", "gestión de pagos a terceros (Stripe Connect)"],
+    "non_negotiables": [
+      "El creador se queda al menos el 85% de sus ingresos",
+      "Onboarding de un creador en menos de 15 minutos"
+    ],
+    "deadline": "Plan de crecimiento en 1 semana"
+  },
+  "available_data": {
+    "assets": [
+      "12 creadores en lista de espera dispuestos a probar",
+      "Newsletter propia con 8.000 suscriptores en el nicho"
+    ],
+    "known_metrics": {
+      "waitlist": 12,
+      "owned_newsletter_subs": 8000,
+      "target_take_rate_pct": 10
+    }
+  }
+}

@@ -7,6 +7,7 @@
 
 | Módulo | Consume de (upstream) | Alimenta a (downstream) |
 |--------|------------------------|--------------------------|
+| `output-evaluator` | cualquier módulo (vía `upstream_outputs`) | `orchestrator` |
 | `product-builder` | — | `ai-architecture`, `ux-strategy`, `roadmap-generator`, `growth-engine`, `pricing-strategy`, `ops-automation` |
 | `ux-strategy` | `product-builder` | `roadmap-generator`, `funnel-designer`, `growth-engine` |
 | `roadmap-generator` | `product-builder`, `ux-strategy`, `ai-architecture` | `ops-automation`, `scaling-ops`, `financial-scenarios` |

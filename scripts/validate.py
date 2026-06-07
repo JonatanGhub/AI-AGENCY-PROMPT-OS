@@ -8,7 +8,8 @@ Comprueba, sin dependencias externas:
   3. Cada id de prompt referenciado en prompt-index.md existe en disco.
   4. Cada fila de registry/dependency-map.md referencia (1ª columna) un prompt existente.
   5. Cada workflow en disco está listado en prompt-index.md.
-  6. Cada examples/**/input.json y clients/**/input.json es JSON válido y declara las claves requeridas.
+  6. Cada examples/**/input.json y clients/**/input.json es JSON válido, declara las claves
+     requeridas y (si declara meta.workflow) referencia un workflow existente.
   7. registry/manifest.json está sincronizado con el disco: ids ↔ archivos, sin aristas colgantes,
      workflows con pasos válidos (la fuente de verdad legible por máquina no deriva del markdown).
 
@@ -97,8 +98,11 @@ def check_workflows_indexed(wf_ids: set[str], index_text: str) -> None:
             fail(f"workflow en disco no listado en prompt-index.md: {wid}")
 
 
-def check_inputs() -> None:
-    """Valida los input.json de ejemplos y de clientes (claves requeridas del input schema)."""
+def check_inputs(wf_ids: set[str]) -> None:
+    """Valida los input.json de ejemplos y de clientes (claves requeridas del input schema).
+
+    Además, si declaran meta.workflow, comprueba que el workflow exista en disco.
+    """
     required = {"business_context", "objective", "constraints"}
     for base in ("examples", "clients"):
         base_dir = ROOT / base
@@ -114,6 +118,9 @@ def check_inputs() -> None:
             missing = required - set(data)
             if missing:
                 fail(f"{rel}: faltan claves requeridas del input schema: {sorted(missing)}")
+            declared_wf = data.get("meta", {}).get("workflow")
+            if declared_wf and declared_wf not in wf_ids:
+                fail(f"{rel}: meta.workflow '{declared_wf}' no existe en workflows/")
 
 
 def check_manifest(disk_ids: set[str], wf_ids: set[str]) -> None:
@@ -176,7 +183,7 @@ def main() -> int:
     check_index_refs_exist(disk_ids, index_text)
     check_dependency_map(disk_ids, dep_text)
     check_workflows_indexed(wf_ids, index_text)
-    check_inputs()
+    check_inputs(wf_ids)
     check_manifest(disk_ids, wf_ids)
 
     print(f"prompts en disco: {len(disk_ids)} · workflows: {len(wf_ids)}")

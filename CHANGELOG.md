@@ -6,6 +6,19 @@ y el versionado del motor se rige por [`registry/versioning.md`](registry/versio
 
 ## [Unreleased]
 
+### Added
+- **`core/output-evaluator`**: nuevo microservicio de calidad que puntúa el output de cualquier
+  módulo contra una rúbrica fija de 6 dimensiones y emite veredicto `pass`/`revise`/`reject`.
+- Bloque opcional **`quality`** en `schemas/output.schema.json` (campo opcional → MINOR, no rompe
+  contrato) para alojar la evaluación.
+- Dos ejemplos end-to-end nuevos: `examples/devflow-pr-reviewer` (B2B dev-tools, `blueprint-mvp`)
+  y `examples/lumina-creator-monetization` (creator economy, `growth-loop`).
+
+### Changed
+- `scripts/validate.py`: además de las claves requeridas, comprueba que `meta.workflow` de cada
+  `input.json` referencie un workflow existente.
+- Registry (`prompt-index`, `manifest`, `dependency-map`) actualizado: 21 prompts ejecutables.
+
 ## [1.0.0] - 2026-05-30
 
 ### Added
