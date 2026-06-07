@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "run_id": "example-devflow-b2b-001",
+    "workflow": "blueprint-mvp"
+  },
+  "business_context": {
+    "name": "DevFlow",
+    "description": "Asistente de IA que revisa pull requests automáticamente: detecta bugs, sugiere refactors y verifica cumplimiento de las guías de estilo internas del equipo, integrado en GitHub.",
+    "industry": "Developer Tools / B2B SaaS",
+    "stage": "pre-seed",
+    "target_market": "Equipos de ingeniería de 10-200 desarrolladores en empresas de software.",
+    "business_model": "SaaS B2B por puesto (seat-based) con tier por uso de revisiones."
+  },
+  "objective": {
+    "goal": "Diseñar el blueprint mínimo vendible: producto, arquitectura de IA, crecimiento, pricing, unit-economics y roadmap, listo para captar 5 equipos piloto de pago.",
+    "success_metrics": [
+      "5 equipos piloto de pago en 90 días",
+      "Gross margin >= 70% incorporando coste de inferencia",
+      "Tiempo de revisión por PR < 3 minutos"
+    ],
+    "time_horizon": "6m"
+  },
+  "constraints": {
+    "budget": "120.000 EUR de pre-seed para 9 meses",
+    "team": "3 fundadores (2 técnicos, 1 comercial)",
+    "tech_stack": ["TypeScript", "GitHub App", "Anthropic API", "Postgres"],
+    "compliance": ["SOC2 en roadmap", "no entrenar con código del cliente"],
+    "non_negotiables": [
+      "El código del cliente nunca se usa para entrenar modelos",
+      "Coste de inferencia por PR por debajo del 30% del precio por puesto"
+    ],
+    "deadline": "Blueprint en 2 semanas; pilotos en 90 días"
+  },
+  "available_data": {
+    "assets": [
+      "Red de 30 CTOs en el network de los fundadores",
+      "Prototipo funcional que comenta PRs en un repo interno"
+    ],
+    "known_metrics": {
+      "design_partners_interested": 8,
+      "target_price_eur_seat_month": 19
+    }
+  }
+}

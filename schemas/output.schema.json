@@ -67,6 +67,31 @@
       "description": "Payload específico del módulo (libre). Es lo que los módulos downstream leen de available_data.upstream_outputs.",
       "additionalProperties": true
     },
+    "quality": {
+      "type": "object",
+      "description": "Bloque de evaluación, rellenado por output-evaluator al juzgar el output de otro módulo. Opcional para módulos normales.",
+      "required": ["overall", "verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "scores": {
+          "type": "object",
+          "description": "Puntuación por dimensión de la rúbrica (0-5, o null si no evaluable).",
+          "additionalProperties": false,
+          "properties": {
+            "schema_conformance": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+            "actionability": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+            "evidence": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+            "goal_alignment": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+            "chaining_readiness": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+            "risk_coverage": { "type": ["number", "null"], "minimum": 0, "maximum": 5 }
+          }
+        },
+        "overall": { "type": "number", "minimum": 0, "maximum": 5, "description": "Media de las dimensiones evaluables." },
+        "verdict": { "type": "string", "enum": ["pass", "revise", "reject"] },
+        "evaluated_module": { "type": "string", "description": "id del módulo evaluado." },
+        "must_fix": { "type": "array", "items": { "type": "string" }, "description": "Correcciones priorizadas (vacío si verdict=pass)." }
+      }
+    },
     "next_steps": {
       "type": "array",
       "items": {

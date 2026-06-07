@@ -12,6 +12,7 @@
 |----|---------|------|---------|---------|
 | `orchestrator` | `core/orchestrator.prompt.md` | coordinator | v1.0 | Descompone, delega, consolida, decide. |
 | `workflow-engine` | `core/workflow-engine.prompt.md` | executor | v1.0 | Ejecuta workflows declarativos de prompts. |
+| `output-evaluator` | `core/output-evaluator.prompt.md` | evaluator | v1.0 | Puntúa la calidad de un output contra rúbrica fija (pass/revise/reject). |
 | `_prompt-template` | `core/_prompt-template.md` | template | v1.0 | Plantilla canónica de microservicio. |
 
 ## Product
@@ -71,4 +72,4 @@
 | `sales-funnel` | `workflows/sales-funnel.workflow.md` | v1.0 |
 | `blueprint-mvp` | `workflows/blueprint-mvp.workflow.md` | v1.0 |
 
-**Total:** 21 prompts (3 core + 18 departamento) · 4 workflows · 3 schemas.
+**Total:** 21 prompts ejecutables (3 core + 18 departamento) + 1 plantilla canónica · 4 workflows · 3 schemas.

@@ -6,6 +6,7 @@
   "modules": [
     { "id": "orchestrator", "department": "core", "type": "coordinator", "version": "v1.0", "path": "core/orchestrator.prompt.md", "consumes": [], "feeds": [] },
     { "id": "workflow-engine", "department": "core", "type": "executor", "version": "v1.0", "path": "core/workflow-engine.prompt.md", "consumes": [], "feeds": ["orchestrator"] },
+    { "id": "output-evaluator", "department": "core", "type": "evaluator", "version": "v1.0", "path": "core/output-evaluator.prompt.md", "consumes": [], "feeds": ["orchestrator"] },
 
     { "id": "product-builder", "department": "product", "type": "pure-function", "version": "v1.0", "path": "departments/product/product-builder.prompt.md", "consumes": [], "feeds": ["ai-architecture", "ux-strategy", "roadmap-generator", "growth-engine", "pricing-strategy", "ops-automation"] },
     { "id": "ux-strategy", "department": "product", "type": "pure-function", "version": "v1.0", "path": "departments/product/ux-strategy.prompt.md", "consumes": ["product-builder"], "feeds": ["roadmap-generator", "funnel-designer", "growth-engine"] },
