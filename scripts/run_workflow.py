@@ -4,7 +4,7 @@ Runner de workflows del AI Agency Prompt OS.
 
 Convierte el manifiesto (registry/manifest.json) en acción: dado un workflow y un input,
 resuelve el orden de pasos, valida el encadenamiento (cada `consumes` aparece antes) y emite
-un artefacto listo para ejecutar con Cloud Code.
+un artefacto listo para ejecutar con Claude Code.
 
 No llama a ningún LLM ni requiere API key: prepara la orquestación de forma determinista.
 
@@ -134,7 +134,7 @@ def render_plan(workflow: dict, mods: dict[str, dict], data: dict | None, soft: 
         out.append(f"- Objetivo: {obj.get('goal', '—')}")
         out.append("")
 
-    out.append("## Cómo ejecutar con Cloud Code")
+    out.append("## Cómo ejecutar con Claude Code")
     out.append(
         "> Actúa como `core/orchestrator`. Ejecuta este workflow paso a paso siguiendo la secuencia "
         "de arriba. Para cada paso, ensambla el input normalizado (`schemas/input.schema.json`) con "

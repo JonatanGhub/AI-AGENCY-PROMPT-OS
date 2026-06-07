@@ -55,6 +55,32 @@ Recomendado, en orden de preferencia:
 En los tres casos, **ACOS fija una versión** del motor (ver `registry/versioning.md`) y actualiza
 deliberadamente. El validador (`scripts/validate.py`) garantiza que el motor publicado es íntegro.
 
+### Receta: añadir el motor como submodule en ACOS
+
+Ejecutar **en el repositorio de ACOS** (no en este):
+
+```bash
+# 1. Añadir este repo como submodule en /engine
+git submodule add https://github.com/JonatanGhub/AI-AGENCY-PROMPT-OS.git engine
+git -C engine checkout main          # o un tag de versión: git -C engine checkout v1.0
+
+# 2. Commit del puntero del submodule
+git add .gitmodules engine
+git commit -m "chore: add ai-agency-prompt-os as engine submodule"
+
+# 3. Quien clone ACOS luego usa:
+git clone --recurse-submodules <url-de-acos>
+# o, si ya clonó: git submodule update --init --recursive
+
+# 4. Actualizar el motor a una nueva versión, deliberadamente:
+git -C engine fetch && git -C engine checkout <tag-o-main>
+git add engine && git commit -m "chore: bump engine to <version>"
+```
+
+Desde el runtime de ACOS, el Compiler lee `engine/registry/manifest.json` y los prompts en
+`engine/core` + `engine/departments`, y tipa con `engine/schemas/*`. El validador del motor puede
+correrse en el CI de ACOS con `python3 engine/scripts/validate.py`.
+
 ---
 
 ## 4. El "Compiler" del MVP de ACOS

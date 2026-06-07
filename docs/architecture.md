@@ -92,7 +92,7 @@ sequenceDiagram
   U->>R: input.json + workflow id
   R->>M: lee grafo y pasos
   R-->>U: plan de ejecución / mega-prompt
-  U->>E: ejecuta en Cloud Code
+  U->>E: ejecuta en Claude Code
   loop por cada paso del DAG
     E->>D: input normalizado + upstream artifacts
     D-->>E: output.schema.json (decisiones, artifacts)

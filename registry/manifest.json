@@ -2,7 +2,7 @@
   "$schema": "./manifest.schema.json",
   "name": "ai-agency-prompt-os",
   "version": "1.0",
-  "description": "Manifiesto legible por máquina del grafo de microservicios cognitivos. Fuente de verdad para que Cloud Code recorra módulos y workflows programáticamente. Sincronizado con prompt-index.md y dependency-map.md por scripts/validate.py.",
+  "description": "Manifiesto legible por máquina del grafo de microservicios cognitivos. Fuente de verdad para que Claude Code recorra módulos y workflows programáticamente. Sincronizado con prompt-index.md y dependency-map.md por scripts/validate.py.",
   "modules": [
     { "id": "orchestrator", "department": "core", "type": "coordinator", "version": "v1.0", "path": "core/orchestrator.prompt.md", "consumes": [], "feeds": [] },
     { "id": "workflow-engine", "department": "core", "type": "executor", "version": "v1.0", "path": "core/workflow-engine.prompt.md", "consumes": [], "feeds": ["orchestrator"] },

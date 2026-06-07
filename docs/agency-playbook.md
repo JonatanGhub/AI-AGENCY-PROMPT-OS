@@ -64,11 +64,11 @@ cp -r clients/_template clients/acme   # y editar clients/acme/input.json
 # 2. Preparar la orquestación (determinista, sin LLM)
 python3 scripts/run_workflow.py full-business-build clients/acme/input.json
 
-# 3. (opcional) Mega-prompt componido para pegar en Cloud Code
+# 3. (opcional) Mega-prompt componido para pegar en Claude Code
 python3 scripts/run_workflow.py full-business-build clients/acme/input.json --compose
 ```
 
-Luego, en Cloud Code: *"Actúa como `core/orchestrator` y ejecuta el plan para `clients/acme`;
+Luego, en Claude Code: *"Actúa como `core/orchestrator` y ejecuta el plan para `clients/acme`;
 guarda los outputs en `clients/acme/outputs/` y el Decision Log en `clients/acme/decision-log.md`."*
 
 ---
